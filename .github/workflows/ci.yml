@@ -45,13 +45,13 @@ jobs:
           npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage=true
 
       - name: Upload Angular coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: angular-coverage-report
           path: front/coverage/bobapp/
 
       - name: Upload JaCoCo backend coverage report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: jacoco-backend-report
           path: back/target/site/jacoco/
