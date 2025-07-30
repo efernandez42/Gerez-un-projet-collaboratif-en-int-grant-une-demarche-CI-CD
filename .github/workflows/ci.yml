@@ -10,6 +10,9 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     steps:
       - name: Checkout du code
         uses: actions/checkout@v3
@@ -20,10 +23,15 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Build backend (Spring Boot)
+      - name: Build backend (Spring Boot) + JaCoCo
         run: |
           cd back
-          ./mvnw clean install
+          ./mvnw clean verify
+
+      - name: Analyse SonarCloud (Backend)
+        run: |
+          cd back
+          ./mvnw sonar:sonar -Dsonar.login=$SONAR_TOKEN
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -43,6 +51,11 @@ jobs:
         run: |
           cd front
           npm run test -- --watch=false --browsers=ChromeHeadless --code-coverage=true
+
+      - name: Analyse SonarCloud (Frontend)
+        run: |
+          cd front
+          npx sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
       - name: Upload Angular coverage report
         uses: actions/upload-artifact@v4
