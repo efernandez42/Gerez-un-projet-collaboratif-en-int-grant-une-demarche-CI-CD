@@ -27,8 +27,8 @@ jobs:
 
       - name: Analyse SonarCloud (Backend)
         uses: SonarSource/sonarcloud-github-action@v3.1.0
-          with:
-            projectBaseDir: ./back
+        with:
+          projectBaseDir: ./back
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BACK }}
 
@@ -53,8 +53,8 @@ jobs:
 
       - name: Analyse SonarCloud (Frontend)
         uses: SonarSource/sonarcloud-github-action@v3.1.0
-          with:
-            projectBaseDir: ./front
+        with:
+          projectBaseDir: ./front
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
 
