@@ -125,8 +125,8 @@ jobs:
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
-          context: ./front
-          file: Dockerfile
+          context: .
+          file: front/Dockerfile
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/bobapp-front:latest
